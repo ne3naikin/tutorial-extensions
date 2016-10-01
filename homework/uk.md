@@ -2,7 +2,7 @@
 
 Наш блог виконав довгий шлях, але є ще можливості для вдосконалення. Далі, ми будемо додавати нові функції для постів - чернетки та їх публікацію. Ми також додамо видалення повідомлень, які нам більше не потрібні. Чудово!
 
-## Зберегти нові повідомлення як чернетки
+## Зберегати нові повідомлення як чернетки
 
 В даний час, коли ми створюємо нові повідомлення за допомогою нашої *New post (Новий пост)* форми, пост публікується відразу. Для того, щоб зберегти повідомлення як чернетку, **видаліть** цей рядок в  `blog/views.py` в `post_new` і `post_edit` методів:
 
@@ -18,19 +18,19 @@ post.published_date = timezone.now()
 
 Час, щоб зробити щось подібне, але для чорнових постів.
 
-Давайте додамо посилання в `blog/templates/blog/base.html` біля кнопки для додавання нових постів (трохи вище `<h1><a href="/">Django Girls Blog</a></h1>` строку!):
+Давайте додамо посилання у `blog/templates/blog/base.html` біля кнопки для додавання нових постів (трохи вище `<h1><a href="/">Django Girls Blog</a></h1>` рядка!):
 
 ```django
 <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
 ```
 
-Далі: urls! В `blog/urls.py` ми добавим:
+Далі: посилання! У `blog/urls.py` ми добавим:
 
 ```python
 url(r'^drafts/$', views.post_draft_list, name='post_draft_list'),
 ```
 
-Time to create a view in `blog/views.py`:
+Тепер настав час, створити їого відображення у `blog/views.py`:
 
 ```python
 def post_draft_list(request):
@@ -38,9 +38,9 @@ def post_draft_list(request):
     return render(request, 'blog/post_draft_list.html', {'posts': posts})
 ```
 
-This line `Post.objects.filter(published_date__isnull=True).order_by('created_date')` makes sure we take only unpublished posts (`published_date__isnull=True`) and order them by `created_date` (`order_by('created_date')`).
+Цей рядок `Post.objects.filter(published_date__isnull=True).order_by('created_date')` гарантує, що ми приймаємо тільки неопубліковані повідомлення (`published_date__isnull=True`) згідно з їх замовленням доводити до ладу and order them by `created_date` (`order_by('created_date')`).
 
-Ok, the last bit is of course a template! Create a file `blog/templates/blog/post_draft_list.html` and add the following:
+Добре, останній крок, звичайно, шаблон! створіть файл `blog/templates/blog/post_draft_list.html` та додайте наступні рядки:
 
 ```django
 {% extends 'blog/base.html' %}
@@ -56,11 +56,11 @@ Ok, the last bit is of course a template! Create a file `blog/templates/blog/pos
 {% endblock %}
 ```
 
-It looks very similar to our `post_list.html`, right?
+Він дуже схожий на наш `post_list.html`, чи не так? 
 
-Now when you go to `http://127.0.0.1:8000/drafts/` you will see the list of unpublished posts.
+Тепер коли ви перейдете по посиланню `http://127.0.0.1:8000/drafts/` ви побачете список неопублікованих постив.
 
-Yay! Your first task is done!
+Прекрасно! Ваша перша задача виконана!
 
 ## Add publish button
 
