@@ -14,7 +14,7 @@ post.published_date = timezone.now()
 
 ## Сторінка зі списком неопублікованих постів
 
-Remember the chapter about querysets? We created a view `post_list` that displays only published blog posts (those with non-empty `published_date`).Пам'ятайте розділ про множинні запити? Ми створили подання `post_list`, який відображає лише опубліковані записи в блогах (тих, хто з непустих `published_date`).
+Пам'ятайте розділ про множинні запити? Ми створили подання `post_list`, який відображає лише опубліковані записи в блогах (тих, хто з непустих `published_date`).
 
 Час, щоб зробити щось подібне, але для чорнових постів.
 
@@ -24,7 +24,7 @@ Remember the chapter about querysets? We created a view `post_list` that display
 <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
 ```
 
-Далі: посиланя! В `blog/urls.py` ми добавим:
+Далі: urls! В `blog/urls.py` ми добавим:
 
 ```python
 url(r'^drafts/$', views.post_draft_list, name='post_draft_list'),
