@@ -12,19 +12,19 @@ post.published_date = timezone.now()
 
 Таким чином, нові повідомлення будуть збережені як чернетки, які ми можемо розглянути пізніше, а не миттєво опубліковати. Все, що нам зараз потрібно, це шлях до списка де публікуются чернетоки, давайте зробемо це!
 
-## Page with list of unpublished posts
+## Сторінка зі списком неопублікованих постів
 
-Remember the chapter about querysets? We created a view `post_list` that displays only published blog posts (those with non-empty `published_date`).
+Remember the chapter about querysets? We created a view `post_list` that displays only published blog posts (those with non-empty `published_date`).Пам'ятайте розділ про множинні запити? Ми створили подання `post_list`, який відображає лише опубліковані записи в блогах (тих, хто з непустих `published_date`).
 
-Time to do something similar, but for draft posts.
+Час, щоб зробити щось подібне, але для чорнових постів.
 
-Let's add a link in `blog/templates/blog/base.html` near the button for adding new posts (just above `<h1><a href="/">Django Girls Blog</a></h1>` line!):
+Давайте додамо посилання в `blog/templates/blog/base.html` біля кнопки для додавання нових постів (трохи вище `<h1><a href="/">Django Girls Blog</a></h1>` строку!):
 
 ```django
 <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
 ```
 
-Next: urls! In `blog/urls.py` we add:
+Далі: посиланя! В `blog/urls.py` ми добавим:
 
 ```python
 url(r'^drafts/$', views.post_draft_list, name='post_draft_list'),
