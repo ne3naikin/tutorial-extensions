@@ -105,7 +105,7 @@ def post_publish(request, pk):
     return redirect('blog.views.post_detail', pk=pk)
 ```
 
-Remember, when we created a Пам'ятайте, коли ми створили `Post` model we wrote a method Модель, яку ми написали метод `publish`. It looked like this:Виглядало це так:
+Пам'ятаєте, колись ми створили модель `Post` у яку ми написали метод `publish`. Виглядало це так:
 
 ```python
 def publish(self):
@@ -113,31 +113,31 @@ def publish(self):
     self.save()
 ```
 
-Now we can finally use this!Тепер ми можемо нарешті використовувати це!
+Тепер ми можемо нарешті використати це!
 
-And once again after publishing the post we are immediately redirected to the І ще раз після публікації поста ми негайно перенаправлений `post_detail` page!сторінка!
+І ще одне, після публікації повідоилення ми негайно перенаправемось до сторінки `post_detail`!
 
 ![Publish button](images/publish2.png)
 
-Congratulations! You are almost there. The last step is adding a delete button!Вітаємо! Ви майже там. Останній крок додає кнопку видалення!
+Вітаємо! Ви майже підійшли до кінця. Останній крок, додамо кнопку видалення!
 
-## Delete postвидалити запис
+## Видалити запис
 
-Let's open Давайте відкриємо`blog/templates/blog/post_detail.html` once again and add this line:ще раз і додайте наступний рядок:
+Давайте відкриємо ще раз `blog/templates/blog/post_detail.html` і додамо наступний рядок:
 
 ```django
 <a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
 ```
 
-just under a line with the edit button.як раз під лінією за допомогою кнопки редагування.
+як раз під рядком біля кнопки редагування.
 
-Now we need a URL Тепер нам потрібен URL(`blog/urls.py`):
+Тепер нам потрібен URL (`blog/urls.py`):
 
 ```python
 url(r'^post/(?P<pk>\d+)/remove/$', views.post_remove, name='post_remove'),
 ```
 
-Now, time for a view! OpenТепер, час для зору! ВІДЧИНЕНО `blog/views.py` and add this code:і додайте цей код:
+Тепер, час для файлу view! Відкриемо `blog/views.py` та додамо цей код:
 
 ```python
 def post_remove(request, pk):
@@ -146,13 +146,13 @@ def post_remove(request, pk):
     return redirect('blog.views.post_list')
 ```
 
-The only new thing is to actually delete a blog post. Every Django model can be deleted byЄдина нова річ насправді видалити повідомлення. Кожна модель Django може бути видалений `.delete()`. It is as simple as that!Це так само просто, як це!
+Де єдина нова річ, це рядок видалення у блозі повідомлення. Кожна модель Django може бути видалена за допомоги `.delete()`. Це простіше нікуди!
 
-And this time, after deleting a post we want to go to the webpage with a list of posts, so we are using І на цей раз, після видалення поста ми хочемо, щоб перейти на веб-сторінку зі списком повідомлень, тому ми використовуємо `redirect`.
+Та на цей раз, після видалення повідомлення ми хочемо, щоб був перехід на веб-сторінку зі списком повідомлень, тому ми використовуємо `redirect`.
 
-Let's test it! Go to the page with a post and try to delete it!Давайте перевіримо це! Перейти на сторінку з постом і спробувати видалити його!
+Давайте перевіримо! Перейдіть на сторінку з повідомленням і спробуйте видалити його!
 
 ![Delete button](images/delete3.png)
 
-Yes, this is the last thing! You completed this tutorial! You are awesome!Так, це остання річ! Ви закінчили цей урок! Ви чудові!
+Так, це все! Ви закінчили цей урок! Ви чудові!
 
