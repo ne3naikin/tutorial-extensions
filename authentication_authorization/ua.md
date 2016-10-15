@@ -1,9 +1,8 @@
-# Homework: Adding security to your website Домашнє завдання: Додавання безпеки на свій веб-сайт
+# Домашнє завдання: Додайте безпеки на свій веб-сайт
 
-You might have noticed that you didn't have to use your password, apart from back when we used the admin interface. You might also have noticed that this means that anyone can add or edit posts in your blog. I don't know about you, but I don't want just anyone to post on my blog. So lets do something about it.
-Ви могли помітити, що ви не повинні використовувати свій пароль, за винятком спини, коли ми використовували інтерфейс адміністратора. Можна також зауважити, що це означає, що будь-хто може додавати або редагувати повідомлення в свій блог. Я не знаю про вас, але я не хочу, просто хтось розміщувати на своєму блозі. Так що давайте робити щось про це.
+Ви могли помітити, що не використовуете свій пароль, за винятком тих випадків, коли ми використовували інтерфейс адміністратора. Зауважимо, що це означає, що будь-хто може додавати або редагувати повідомлення до вашого блогу. Я не знаю як ви, але я не хочу, щьоб хтось розміщував пости в моєму блозі. Так що давайте робити щось з цим.
 
-## Authorizing add/edit of posts Авторизація для додавання або редагування повідомлень
+## Авторизація для додавання або редагування повідомлень
 
 First lets make things secure. We will protect our `post_new`, `post_edit`, `post_draft_list`, `post_remove` and `post_publish` views so that only logged-in users can access them. Django ships with some nice helpers for that using, the kind of advanced topic, _decorators_. Don't worry about the technicalities now, you can read up on these later. The decorator to use is shipped in Django in the module `django.contrib.auth.decorators` and is called `login_required`.
 По-перше дозволяє зробити речі безпечними. Ми будемо захищати наш `post_new`, `post_edit`, `post_draft_list`, `post_remove` і `post_publish` перегляди, так що тільки що увійшов користувачі можуть отримати доступ до них. Django поставляється з деякими хорошими помічниками для цього, з використанням виду передовий темі, _decorators_. Тепер не турбуватися про технічні деталі, ви можете прочитати про це пізніше. Декоратор використовувати поставляється в Django в модулі `django.contrib.auth.decorators` і називается `login_required`.
