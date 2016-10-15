@@ -5,7 +5,8 @@
 ## Авторизація для додавання або редагування повідомлень
 
 First lets make things secure. We will protect our `post_new`, `post_edit`, `post_draft_list`, `post_remove` and `post_publish` views so that only logged-in users can access them. Django ships with some nice helpers for that using, the kind of advanced topic, _decorators_. Don't worry about the technicalities now, you can read up on these later. The decorator to use is shipped in Django in the module `django.contrib.auth.decorators` and is called `login_required`.
-По-перше дозволяє зробити речі безпечними. Ми будемо захищати наш `post_new`, `post_edit`, `post_draft_list`, `post_remove` і `post_publish` перегляди, так що тільки що увійшов користувачі можуть отримати доступ до них. Django поставляється з деякими хорошими помічниками для цього, з використанням виду передовий темі, _decorators_. Тепер не турбуватися про технічні деталі, ви можете прочитати про це пізніше. Декоратор використовувати поставляється в Django в модулі `django.contrib.auth.decorators` і називается `login_required`.
+
+По-перше довайте зробимо речі безпечнимшими. Ми будемо захищати наш `post_new`, `post_edit`, `post_draft_list`, `post_remove` і `post_publish` перегляди, так що тільки що увійшов користувачі можуть отримати доступ до них. Django поставляється з деякими хорошими помічниками для цього, з використанням виду передовий темі, _decorators_. Не будем зараз турбуватися про технічні деталі Тепер не турбуватися про технічні деталі, ви можете прочитати про це пізніше. Декоратор використовувати поставляється в Django в модулі `django.contrib.auth.decorators` і називается `login_required`.
 
 So edit your `blog/views.py` and add these lines at the top along with the rest of the imports:
 
