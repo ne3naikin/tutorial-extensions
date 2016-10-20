@@ -12,7 +12,7 @@
 from django.contrib.auth.decorators import login_required
 ```
 
-Потім додайте перед кожним `post_new`, `post_edit`, `post_draft_list`, `post_remove` та `post_publish` наступні рядки
+Потім додайте перед кожним переглядом `post_new`, `post_edit`, `post_draft_list`, `post_remove` та `post_publish` наступні рядки
 
 ```python
 @login_required
