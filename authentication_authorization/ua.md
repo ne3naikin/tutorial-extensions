@@ -4,17 +4,15 @@
 
 ## Авторизація для додавання або редагування повідомлень
 
-First lets make things secure. We will protect our `post_new`, `post_edit`, `post_draft_list`, `post_remove` and `post_publish` views so that only logged-in users can access them. Django ships with some nice helpers for that using, the kind of advanced topic, _decorators_. Don't worry about the technicalities now, you can read up on these later. The decorator to use is shipped in Django in the module `django.contrib.auth.decorators` and is called `login_required`.
+По-перше довайте зробимо речі більш безпечнимшими. Ми будемо захищати наші перегляди, такі як `post_new`, `post_edit`, `post_draft_list`, `post_remove` і `post_publish`, таким чином, що отримати доступ до них можуть тільки ті користувачі що увійшли. Django поставляється з деякими хорошими помічниками для цього, такі як додаткові теми, _decorators_. Не будем зараз вдоватись у технічні деталі, про них ви зможете прочитати де що пізніше. Декоратор користувача размишенний в Django у модулі `django.contrib.auth.decorators` і називается `login_required`.
 
-По-перше довайте зробимо речі безпечнимшими. Ми будемо захищати наш `post_new`, `post_edit`, `post_draft_list`, `post_remove` і `post_publish` перегляди, так що тільки що увійшов користувачі можуть отримати доступ до них. Django поставляється з деякими хорошими помічниками для цього, з використанням виду передовий темі, _decorators_. Не будем зараз турбуватися про технічні деталі Тепер не турбуватися про технічні деталі, ви можете прочитати про це пізніше. Декоратор використовувати поставляється в Django в модулі `django.contrib.auth.decorators` і називается `login_required`.
-
-So edit your `blog/views.py` and add these lines at the top along with the rest of the imports:
+Так відредагуйте ваш  `blog/views.py` і додайте ці рядки до верхньої частині, разом з іншою частиною імпорту:  
 
 ```python
 from django.contrib.auth.decorators import login_required
 ```
 
-Then add a line before each of the `post_new`, `post_edit`, `post_draft_list`, `post_remove` and `post_publish` views (decorating them) like the following:
+Потім додайте перед кожним `post_new`, `post_edit`, `post_draft_list`, `post_remove` та `post_publish` наступні рядки
 
 ```python
 @login_required
