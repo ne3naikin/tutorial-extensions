@@ -19,24 +19,15 @@ from django.contrib.auth.decorators import login_required
 def post_new(request):
     [...]
 ```
+Ось воно! Тепер спробуйте отримати доступ до `http://localhost:8000/post/new/`, помічаєте різницю?
 
-Thats it! Now try to access `http://localhost:8000/post/new/`, notice the difference?
-Це воно! Тепер спробуйте отримати доступ до `HTTP: // локального хоста: 8000 / посада / новий /`, зверніть увагу на різницю?
-Ось воно! Тепер спробуйте отримати доступ до 'http://localhost:8000/post/new/', помітите різницю?
+> Якщо ви тільки що отримали порожню форму, ви напевно увійшли у систему з головного інтерфейсу адміністратора. Перейти до `http://localhost:8000/admin/logout/`, щоб вийти з облікового запису, а потім ввійдіть ще раз `http://localhost:8000/post/new`.
 
-> If you just got the empty form, you are probably still logged in from the chapter on the admin-interface. Go to `http://localhost:8000/admin/logout/` to log out, then goto `http://localhost:8000/post/new` again.
->, якщо ви просто порожній форму, ймовірно, ви все одно реєструється в розділі про адмін-інтерфейсу. Заходьте в розділ 'http://localhost:8000/admin/logout/' для входу в оренду, то goto 'http://localhost:8000/post/new' знову.
-> Якщо ви тільки що отримали порожню форму, ви, ймовірно, до сих пір увійшли в систему з голови про адмін-інтерфейсі. Перейти до `HTTP: // локальний: 8000 / адміністратор / вихід з системи /`, щоб вийти з системи, а потім перейти `HTTP: // локальний: 8000 / пост / new` знову.
-> Якщо ви тільки що отримали пусту форму, ви напевно ще увійшли з розділу на інтерфейс адміністратора. Перейти до ' admin/http://localhost:8000/вихід /' щоб вийти з облікового запису, потім goto ' http://localhost:8000/post/нові' ще раз.
+Ви повинні отримати одну з улюблених помилок. Це - досить цікавий факт: додавши декоратор, ми спочатку будемо потрапляти на сторінку входу в систему. Але на разі це ще не доступно, такщо ми отрімаемо лише на старинку з написом "Сторінку не знайдено (404)"/"Page not found (404)". 
 
-You should get one of the beloved errors. This one is quite interesting actually: The decorator we added before will redirect you to the login page. But that isn't available yet, so it raises a "Page not found (404)".
-Ви повинні отримати один з улюблених помилок. Це одне досить цікаво насправді: Декоратор ми додали, перш ніж ви будете перенаправлені на сторінку входу в систему. Але це поки не доступно, так що це піднімає "Сторінку не знайдено (404)".
+Не забудьте додати декоратор зверху також до `post_edit`, `post_remove`, `post_draft_list` і `post_publish`.
 
-Don't forget to add the decorator from above to `post_edit`, `post_remove`, `post_draft_list` and `post_publish` too.
-Не забудьте додати декоратор зверху `post_edit`, `post_remove`, `post_draft_list` і `post_publish` теж.
-
-Horray, we reached part of the goal! Other people can't just create posts on our blog anymore. Unfortunately we can't create posts anymore too. So lets fix that next.
-Horray, ми досягли частина мети! Інші люди не можуть просто створювати повідомлення на нашому блозі більше. На жаль, ми не можемо створити повідомлення більше теж. Так що давайте виправимо це в наступному.
+Чудово, ми досягли частково мети! Інші люди не зможуть більше просто створювати повідомлення на нашому блозі. На жаль, ми теж більше не можемо створити повідомлення. Так що давайте виправимо це.
 
 
 ## Login users Вхід користувачів
