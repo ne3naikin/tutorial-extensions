@@ -23,20 +23,18 @@ def post_new(request):
 
 > Якщо ви тільки що отримали порожню форму, ви напевно увійшли у систему з головного інтерфейсу адміністратора. Перейти до `http://localhost:8000/admin/logout/`, щоб вийти з облікового запису, а потім ввійдіть ще раз `http://localhost:8000/post/new`.
 
-Ви повинні отримати одну з улюблених помилок. Це - досить цікавий факт: додавши декоратор, ми спочатку будемо потрапляти на сторінку входу в систему. Але на разі це ще не доступно, такщо ми отрімаемо лише на старинку з написом "Сторінку не знайдено (404)"/"Page not found (404)". 
+Ви повинні отримати одну з улюблених помилок. Це - досить цікавий факт: додавши декоратор, ми спочатку будемо потрапляти на сторінку входу в систему. Але на разі це ще не доступно, такщо ми отрімаемо лише старинку з написом "Сторінку не знайдено (404)"/"Page not found (404)". 
 
 Не забудьте додати декоратор зверху також до `post_edit`, `post_remove`, `post_draft_list` і `post_publish`.
 
 Чудово, ми досягли частково мети! Інші люди не зможуть більше просто створювати повідомлення на нашому блозі. На жаль, ми теж більше не можемо створити повідомлення. Так що давайте виправимо це.
 
 
-## Login users Вхід користувачів
+## Користувацький вхід
 
-Now we could try to do lots of magic stuff to implement users and passwords and authentication but doing this kind of stuff correctly is rather complicated. As Django is "batteries included", someone has done the hard work for us, so we will make further use of the authentication stuff provided.
-Тепер ми могли б спробувати зробити багато магічних штучок для реалізації користувачів і паролів і аутентифікації, але робити такого роду речі правильно досить складний. Як Django є "включені батарейки", хтось зробив важку роботу для нас, тому ми зробимо подальше використання матеріалу аутентифікації за умови.
+Тепер ми могли б спробувати зробити багато магічних штучок що до впровадження користувачів, паролів і аутентифікації, але робити правильно, такого роду речі, досить складно. Оскільки у Django вже "включені батарейки", тоб то хтось зробив для нас важку роботу, тому ми воліємо використовувати зробленний матеріал аутентифікації й далі, за умови.
 
-In your `mysite/urls.py` add a url `url(r'^accounts/login/$', django.contrib.auth.views.login)`. So the file should now look similar to this:
-У вашому файлі `MySite / urls.py` додати URL-адрес` URL (ґ ^ рахунки / Увійти / $ ', django.contrib.auth.views.login)`. Таким чином, файл повинен виглядати приблизно так:
+У ваш файл `mysite/urls.py` додан URL-адрес `url(r'^accounts/login/$', django.contrib.auth.views.login)`. Таким чином, файл повинен мати такий вигляд:
 
 ```python
 from django.conf.urls import include, url
@@ -52,8 +50,7 @@ urlpatterns = patterns('',
 )
 ```
 
-Then we need a template for the login page, so create a directory `blog/templates/registration` and a file inside named `login.html`:
-Тоді нам потрібен шаблон для сторінки входу в систему, так що створити каталог `блог / шаблони / registration` і файл з ім'ям внутрі` login.html`:
+Потім ми будем нуждатись в шаблони сторінки входу до блога, отже створюемо каталог `blog/templates/registration`, а вньому файл з ім'ям `login.html`:
 
 ```django
 {% extends "blog/base.html" %}
@@ -84,21 +81,17 @@ Then we need a template for the login page, so create a directory `blog/template
 {% endblock %}
 ```
 
-You will see that this also makes use of our base-template for the overall look and feel of your blog.
-Ви побачите, що це також робить використання нашого базового шаблону для загальний зовнішній вигляд вашого блогу.
+Ви побачите, що використання нашого базового шаблону в цілому покращує зовнішній вигляд та відчуття від вашого блогу.
 
-The nice thing here is that this _just works[TM]_. We don't have to deal with handling of the forms submission nor with passwords and securing them. Only one thing is left here, we should add a setting to `mysite/settings.py`:
-Хороша річ тут є те, що це працює _just [TM] _. Ми не повинні мати справу з обробкою уявлення форм, ні з паролями і забезпечення їх. Тільки одна річ залишається тут, ми повинні додати параметр в `MySite / settings.py`:
+Хороша річ тут в тому, що це _just works[TM]_/_просто працює [TM]_. Ми не маемо справ ні з обробкою поданних форм, ні з паролями та гарантуванням їхньої безпеки. Тільки одну річ ми повинні додати тут, записати параметр у `mysite/settings.py`:
 
 ```python
 LOGIN_REDIRECT_URL = '/'
 ```
 
-Now when the login is accessed directly, it will redirect successful login to the top level index.
-Тепер, коли Логін здійснюється безпосередньо, він буде перенаправляти успішної реєстрації на індекс верхнього рівня.
+Тепер, коли вхід здійснюється безпосередньо, то він буде перенаправляти успішну реєстрацію на початкову сторінку.
 
-## Improving the layout
-## Поліпшення макета
+## Вдосконалення проєкта
 
 So now we made sure that only authorized users (ie. us) can add, edit or publish posts. But still everyone gets to view the buttons to add or edit posts, lets hide these for users that aren't logged in. For this we need to edit the templates, so lets start with the base template from `blog/templates/blog/base.html`:
 Так що тепер ми переконалися, що тільки авторизовані користувачі (тобто. Нас) можна додавати, редагувати або публікувати повідомлення. Але все-таки кожен отримує, щоб переглянути кнопки для додавання або редагування повідомлення, дозволяє приховати їх для користувачів, які не ввійшли в систему. Для цього потрібно відредагувати шаблони, так що давайте почнемо з базового шаблону з `блогу / шаблони / блог / base.html`:
