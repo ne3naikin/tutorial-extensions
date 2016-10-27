@@ -94,7 +94,7 @@ LOGIN_REDIRECT_URL = '/'
 ## Вдосконалення проєкта
 
 So now we made sure that only authorized users (ie. us) can add, edit or publish posts. But still everyone gets to view the buttons to add or edit posts, lets hide these for users that aren't logged in. For this we need to edit the templates, so lets start with the base template from `blog/templates/blog/base.html`:
-Так що тепер ми переконалися, що тільки авторизовані користувачі (тобто. Нас) можна додавати, редагувати або публікувати повідомлення. Але все-таки кожен отримує, щоб переглянути кнопки для додавання або редагування повідомлення, дозволяє приховати їх для користувачів, які не ввійшли в систему. Для цього потрібно відредагувати шаблони, так що давайте почнемо з базового шаблону з `блогу / шаблони / блог / base.html`:
+Токі щьо ми переконалися в тому, що тільки авторизовані користувачі (тобто ми) може додавати, редагувати або опублікувати пости. Але все-таки кожен може бачіти кнопки для додавання або редагування повідомлень, довайте приховаемо їх для користувачів, які не ввійшли в систему. Для цього ми повинні відредагувати шаблони і давайте почнемо з базового шаблону, з `blog/templates/blog/base.html`:
 
 ```django
 <body>
@@ -118,17 +118,15 @@ So now we made sure that only authorized users (ie. us) can add, edit or publish
 </body>
 ```
 
-You might recognize the pattern here. There is an if-condition inside the template that checks for authenticated users to show the edit buttons. Otherwise it shows a login button.
-Ви могли б визнати картину тут. Існує Умовний стан усередині шаблону, який перевіряє наявність пройшли перевірку автентичності користувачів, щоб показати кнопки редагування. В іншому випадку він показує кнопку входу.
+Ви могли б визнати зразок тут. Існує умовний стан усередині шаблону, який перевіряє наявність автентифікації у користувачів, щоб показати кнопки редагування. В іншому випадку він показує кнопку входу.
 
-*Homework*: Edit the template `blog/templates/blog/post_detail.html` to only show the edit buttons for authenticated users.
-* Домашнє завдання *: Редагувати шаблон `блог / шаблони / блог / post_detail.html`, щоб показувати тільки кнопки редагування для авторизованих користувачів.
+*Домашнє завдання*: Відредагуйте шаблон `blog/templates/blog/post_detail.html`, щоб кнопки редагування показувались тільки для авторизованих користувачів.
 
 ## More on authenticated users
-## Додаткова інформація по користувачам, які пройшли перевірку
+## Більше про автентифікацію користувачів
 
 Lets add some nice sugar to our templates while we are at it. First we will add some stuff to show that we are logged in. Edit `blog/templates/blog/base.html` like this:
-Давайте додамо деякий хороший цукор наших шаблонів, поки ми на нього. По-перше, ми додамо деякі речі, щоб показати, що ми увійшли в Edit `Блог / шаблони / блог / base.html` як це .:
+Давайте додамо деякий хороший цукор наших шаблонів, поки ми на нього. По-перше, ми додамо деякі речі, щоб показати, що ми увійшли в Edit `blog/templates/blog/base.html` як це .:
 
 ```django
 <div class="page-header">
