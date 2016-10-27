@@ -93,8 +93,7 @@ LOGIN_REDIRECT_URL = '/'
 
 ## Вдосконалення проєкта
 
-So now we made sure that only authorized users (ie. us) can add, edit or publish posts. But still everyone gets to view the buttons to add or edit posts, lets hide these for users that aren't logged in. For this we need to edit the templates, so lets start with the base template from `blog/templates/blog/base.html`:
-Токі щьо ми переконалися в тому, що тільки авторизовані користувачі (тобто ми) може додавати, редагувати або опублікувати пости. Але все-таки кожен може бачіти кнопки для додавання або редагування повідомлень, довайте приховаемо їх для користувачів, які не ввійшли в систему. Для цього ми повинні відредагувати шаблони і давайте почнемо з базового шаблону, з `blog/templates/blog/base.html`:
+Покі щьо ми переконалися в тому, що тільки авторизовані користувачі (тобто ми) може додавати, редагувати або опублікувати пости. Але все-таки кожен може бачіти кнопки для додавання або редагування повідомлень, довайте приховаемо їх для користувачів, які не ввійшли в систему. Для цього ми повинні відредагувати шаблони і давайте почнемо з базового шаблону, з `blog/templates/blog/base.html`:
 
 ```django
 <body>
