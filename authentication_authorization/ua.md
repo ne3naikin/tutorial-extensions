@@ -117,15 +117,13 @@ LOGIN_REDIRECT_URL = '/'
 </body>
 ```
 
-Ви могли б визнати зразок тут. Існує умовний стан усередині шаблону, який перевіряє наявність автентифікації у користувачів, щоб показати кнопки редагування. В іншому випадку він показує кнопку входу.
+Ви бачете в цім зразку таке визначення. Існує умовний стан усередині шаблону, який перевіряє наявність авторизації у користувачів, щоб показати кнопки редагування. В іншому випадку він показує кнопку входу.
 
 *Домашнє завдання*: Відредагуйте шаблон `blog/templates/blog/post_detail.html`, щоб кнопки редагування показувались тільки для авторизованих користувачів.
 
-## More on authenticated users
-## Більше про автентифікацію користувачів
+## Більше про авторизацію користувачів
 
-Lets add some nice sugar to our templates while we are at it. First we will add some stuff to show that we are logged in. Edit `blog/templates/blog/base.html` like this:
-Давайте додамо деякий хороший цукор наших шаблонів, поки ми на нього. По-перше, ми додамо деякі речі, щоб показати, що ми увійшли в Edit `blog/templates/blog/base.html` як це .:
+Давайте додамо декотрих родзинок до наших шаблонів, поки ми щє тут. По-перше, ми додамо деякі речі, щоб показати, що ми увійшли. Відредагуем `blog/templates/blog/base.html`, ось так:
 
 ```django
 <div class="page-header">
@@ -140,14 +138,11 @@ Lets add some nice sugar to our templates while we are at it. First we will add 
 </div>
 ```
 
-This adds a nice "Hello &lt;username&gt;" to remind us who we are and that we are authenticated. Also this adds a link to log out of the blog. But as you might notice this isn't working yet. Oh nooz, we broke the internetz! Lets fix it!
-Це додає хороший "Hello & лт; ім'я користувача & GТ;" щоб нагадати нам, хто ми і що ми ідентифікуються. Крім того, це додає посилання, щоб вийти з блогу. Але, як ви могли помітити, це ще не працює. Про nooz, ми зламали internetz! Дозволяє виправити!
+Додамо гарного тону "Привіт &lt;ім'я користувача&gt;"/"Hello &lt;username&gt;" щоб нагадати нам хто ми і що ми авторизовались.  Крім того, додамо посилання на вихід з нашего блогу. Але, як ви могли помітити, це ще не працює. О ні, ми зламали Интернет! Давайте виправимо це!
 
-We decided to rely on django to handle login, lets see if Django can also handle logout for us. Check https://docs.djangoproject.com/en/1.8/topics/auth/default/ and see if you find something.
-Ми вирішили покладатися на Джанго обробляти логін, дозволяє побачити, якщо Django може також обробляти вихід з системи для нас. Перевірте https://docs.djangoproject.com/en/1.8/topics/auth/default/ і подивитися, якщо ви знайдете щось.
+Ми вирішили довіріте Django обробляти вхід, змогли побачіти як Django може також обробляти вихід для нас. Перевірте https://docs.djangoproject.com/en/1.8/topics/auth/default/ та знадить щось щє цікаве.
 
-Done reading? You should by now think about adding a url (in `mysite/urls.py`) pointing to the `django.contrib.auth.views.logout` view. Like this:
-Вчинено читання? Ви повинні зараз думати про додавання URL (в `MySite / urls.py`), який вказує на 'django.contrib.auth.views.logout` зору. Подобається це:
+Закінчили читати? Ви повинні зараз думати про додавання URL-адреси (в `mysite/urls.py`), вказуючи на подання  `django.contrib.auth.views.logout`. Ось так:
 
 ```python
 from django.conf.urls import include, url, patterns
@@ -164,14 +159,8 @@ urlpatterns = patterns('',
 )
 ```
 
-Thats it! If you followed all of the above until this point (and did the homework), you now have a blog where you
+Це воно! Якщо ви виконували до цього моменту все вище написане (і зробили домашнє завдання), то тепер у вас є блог, де ви
 
- - need a username and password to log in,
- - need to be logged in to add/edit/publish(/delete) posts
- - and can log out again
-
-Це воно! Якщо ви виконали всі вище до цього моменту (і зробив домашнє завдання), тепер у вас є блог, де ви
-
- - Потрібно ввести ім'я користувача і пароль, щоб увійти,
- - Потрібно увійти в систему, щоб додавати / редагувати / публікувати (/ видалення) повідомлення
- - І може вийти знову
+ - щоб увійти, повинні ввести ім'я користувача і пароль,
+ - щоб, увійшовши, мати змогу, додавати/редагувати/публікувати(/видаляти) повідомлення
+ - і може знову вийти
