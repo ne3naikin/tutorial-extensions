@@ -1,10 +1,14 @@
-# Homework: create comment model
+# Homework: create comment modelДомашнє завдання: створити коментар модель
 
 Currently, we only have a Post model. What about receiving some feedback from your readers and letting them comment?
+Наданному часі ми маємо тількі модель повідомлень (модуль постів). Що о обратной связи н
+В даний час у нас є тільки модель Post. Що про отримання якоїсь зворотний зв'язок від ваших читачів і дати їм коментарі?  
+В даний час у нас тільки посаду моделі. Що ви можете сказати про надходили відгуки від ваших читачів і їхнім намірам прокоментувати?
 
-## Creating comment blog model
+## Creating comment blog modelСтворення блогу коментар модель
 
 Let's open `blog/models.py` and append this piece of code to the end of file:
+Давайте відкриємо `blog/models.py` і додати цей шматок коду в кінець файлу:
 
 ```python
 class Comment(models.Model):
@@ -23,15 +27,20 @@ class Comment(models.Model):
 ```
 
 You can go back to the **Django models** chapter in the tutorial if you need a refresher on what each of the field types mean.
+Ви можете повернутися до ** моделі Django ** глави в підручнику, якщо вам потрібно освіжити в пам'яті про те, що кожне з поля типу означають.
 
 In this tutorial extension we have a new type of field:
 - `models.BooleanField` - this is true/false field.
+У цьому розширенні підручнику ми маємо новий тип поля:
+- `Models.BooleanField` - це істина / неправда поле.
 
 The `related_name` option in `models.ForeignKey` allows us to have access to comments from within the Post model.
+`Related_name` варіант В` models.ForeignKey` дозволяє нам мати доступ до коментарів всередині моделі Post.
 
-## Create tables for models in your database
+## Create tables for models in your databaseСтворення таблиць для моделей в базі даних
 
 Now it's time to add our comment model to the database. To do this we have to tell Django that we made changes to our model. Type `python manage.py makemigrations blog` in your command line. You should see output like this:
+Тепер прийшов час, щоб додати наш коментар модель в базу даних. Для цього ми повинні сказати Django, що ми внесли зміни в нашу модель. Тип `Python manage.py makemigrations blog` в командному рядку. Ви повинні побачити, як це:
 
     (myvenv) ~/djangogirls$ python manage.py makemigrations blog
     Migrations for 'blog':
@@ -39,6 +48,7 @@ Now it's time to add our comment model to the database. To do this we have to te
         - Create model Comment
 
 You can see that this command created another migration file for us in the `blog/migrations/` directory. Now we need to apply those changes by typing `python manage.py migrate blog` in the command line. The output should look like this:
+Ви можете бачити, що ця команда створили інший файл міграції для нас в `блог / міграції /` директорії. Тепер нам потрібно застосувати ці зміни, запровадивши `пітона manage.py мігрувати blog` в командному рядку. Висновок повинен виглядати наступним чином:
 
 ```
     (myvenv) ~/djangogirls$ python manage.py migrate blog
@@ -50,6 +60,7 @@ You can see that this command created another migration file for us in the `blog
 ```
 
 Our Comment model exists in the database now! Wouldn't it be nice if we had access to it in our admin panel?
+Наша модель Коментар існує в базі даних зараз! Не було б добре, якби ми мали доступ до нього в нашій панелі адміністратора?
 
 ## Register Comment model in admin panel
 
