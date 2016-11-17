@@ -1,14 +1,10 @@
-# Homework: create comment modelДомашнє завдання: створити коментар модель
+# Домашнє завдання: створить модель коментарів
 
-Currently, we only have a Post model. What about receiving some feedback from your readers and letting them comment?
-Наданному часі ми маємо тількі модель повідомлень (модуль постів). Що о обратной связи н
-В даний час у нас є тільки модель Post. Що про отримання якоїсь зворотний зв'язок від ваших читачів і дати їм коментарі?  
-В даний час у нас тільки посаду моделі. Що ви можете сказати про надходили відгуки від ваших читачів і їхнім намірам прокоментувати?
+Нині ми маємо тільки модель повідомлень (модель постів). А що ви можете сказати, якщо будуть надходити відгуки від ваших читачів через їх коментарі?
 
-## Creating comment blog modelСтворення блогу коментар модель
+## Створення моделі коментарів у блозі
 
-Let's open `blog/models.py` and append this piece of code to the end of file:
-Давайте відкриємо `blog/models.py` і додати цей шматок коду в кінець файлу:
+Нумо відкриймо `blog/models.py` і додамо цей шматок коду в кінець файлу:
 
 ```python
 class Comment(models.Model):
@@ -26,16 +22,12 @@ class Comment(models.Model):
         return self.text
 ```
 
-You can go back to the **Django models** chapter in the tutorial if you need a refresher on what each of the field types mean.
-Ви можете повернутися до ** моделі Django ** глави в підручнику, якщо вам потрібно освіжити в пам'яті про те, що кожне з поля типу означають.
+Ви можете повернутися до глави **Django models** в підручнику, якщо вам потрібно освіжити в пам'яті, що означає кожен з цих типів полів.
 
-In this tutorial extension we have a new type of field:
-- `models.BooleanField` - this is true/false field.
-У цьому розширенні підручнику ми маємо новий тип поля:
-- `Models.BooleanField` - це істина / неправда поле.
+У цьому розширенні з підручника ми маємо новий тип поля:
+- `models.BooleanField` - це поле істина/брехня.
 
-The `related_name` option in `models.ForeignKey` allows us to have access to comments from within the Post model.
-`Related_name` варіант В` models.ForeignKey` дозволяє нам мати доступ до коментарів всередині моделі Post.
+Варіант `related_name` в `models.ForeignKey` дозволяє нам мати доступ до коментарів всередині моделі постів.
 
 ## Create tables for models in your databaseСтворення таблиць для моделей в базі даних
 
