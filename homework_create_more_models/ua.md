@@ -27,7 +27,7 @@ class Comment(models.Model):
 У цьому розширенні з підручника ми маємо новий тип поля:
 - `models.BooleanField` - це поле істина/брехня.
 
-Варіант `related_name` в `models.ForeignKey` дозволяє нам мати доступ до коментарів всередині моделі постів.
+Елемент `related_name` в `models.ForeignKey` дозволяє нам мати доступ до коментарів всередині моделі постів.
 
 ## Create tables for models in your databaseСтворення таблиць для моделей в базі даних
 
