@@ -29,18 +29,16 @@ class Comment(models.Model):
 
 Елемент `related_name` в `models.ForeignKey` дозволяє нам мати доступ до коментарів всередині моделі постів.
 
-## Create tables for models in your databaseСтворення таблиць для моделей в базі даних
+## Створення таблиць для моделей в базі даних
 
-Now it's time to add our comment model to the database. To do this we have to tell Django that we made changes to our model. Type `python manage.py makemigrations blog` in your command line. You should see output like this:
-Тепер прийшов час, щоб додати наш коментар модель в базу даних. Для цього ми повинні сказати Django, що ми внесли зміни в нашу модель. Тип `Python manage.py makemigrations blog` в командному рядку. Ви повинні побачити, як це:
+Тепер прийшов час, щоб додати нашу модель коментарів в базу даних. Для цього ми повинні сказати Django, що ми внесли зміни в нашу модель. Для цього введемо в командному рядку такий тип рядка `python manage.py makemigrations blog`. Ви повинні побачити, таке:
 
     (myvenv) ~/djangogirls$ python manage.py makemigrations blog
     Migrations for 'blog':
       0002_comment.py:
         - Create model Comment
 
-You can see that this command created another migration file for us in the `blog/migrations/` directory. Now we need to apply those changes by typing `python manage.py migrate blog` in the command line. The output should look like this:
-Ви можете бачити, що ця команда створили інший файл міграції для нас в `блог / міграції /` директорії. Тепер нам потрібно застосувати ці зміни, запровадивши `пітона manage.py мігрувати blog` в командному рядку. Висновок повинен виглядати наступним чином:
+Ви можете бачити, що ця команда створила інший файл міграції для нас в директорії `blog/migrations/`. Тепер нам потрібно застосувати ці зміни, запровадивши `python manage.py migrate blog` в командному рядку. На виході повинні побачити це: 
 
 ```
     (myvenv) ~/djangogirls$ python manage.py migrate blog
@@ -51,24 +49,26 @@ You can see that this command created another migration file for us in the `blog
       Applying blog.0002_comment... OK
 ```
 
-Our Comment model exists in the database now! Wouldn't it be nice if we had access to it in our admin panel?
-Наша модель Коментар існує в базі даних зараз! Не було б добре, якби ми мали доступ до нього в нашій панелі адміністратора?
+Наша модель *коментарів* вже існує в базі даних! А не було б це добре, якби ми мали доступ до неї в нашій панелі адміністратора?
 
-## Register Comment model in admin panel
+## Register Comment model in admin panelРеєстрація коментар модель в панелі адміністратора
 
 To register the Comment model in the admin panel, go to `blog/admin.py` and add this line:
+Для того, щоб зареєструвати коментар модель в панелі адміністратора, перейдіть в `blog/admin.py` і додайте наступний рядок:
 
 ```python
 admin.site.register(Comment)
 ```
 
 directly under this line:
+безпосередньо під цієї лінії:
 
 ```python
 admin.site.register(Post)
 ```
 
 Remember to import the Comment model at the top of the file, too, like this:
+Не забудьте імпортувати модель коментаря у верхній частині файлу, теж, як це:
 
 ```python
 from django.contrib import admin
@@ -79,10 +79,12 @@ admin.site.register(Comment)
 ```
 
 If you type `python manage.py runserver` on the command line and go to [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) in your browser, you should have access to the list of comments, and also the capability to add and remove comments. Play around with the new comments feature!
+Якщо ви наберете `python manage.py runserver` в командному рядку і перейти до [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) в вашому браузері, ви повинні мати доступ до списку коментарів, а також можливість додавати і видаляти коментарі. Пограйте з новою функцією коментарів!
 
-## Make our comments visible
+## Make our comments visibleЗробити наші коментарі видно
 
 Go to the `blog/templates/blog/post_detail.html` file and add the following lines before the `{% endblock %}` tag:
+Перейти до `blog/templates/blog/post_detail.html` і додайте наступні рядки перед `{% endblock %}` тег:
 
 ```django
 <hr>
@@ -98,8 +100,10 @@ Go to the `blog/templates/blog/post_detail.html` file and add the following line
 ```
 
 Now we can see the comments section on pages with post details.
+Тепер ми можемо побачити розділ коментарі на сторінках з поштовими деталями.
 
 But it could look a little bit better, so let's add some CSS to the bottom of the `static/css/blog.css` file:
+Але це може виглядати трохи краще, так що давайте додамо трохи CSS до нижньої частини `static/css/blog.css` файлу:
 
 ```css
 .comment {
@@ -108,12 +112,14 @@ But it could look a little bit better, so let's add some CSS to the bottom of th
 ```
 
 We can also let visitors know about comments on the post list page. Go to the `blog/templates/blog/post_list.html` file and add the line:
+Ми також можемо дозволити відвідувачам знати про коментарі на сторінці списку повідомлень. Перейти до `blog/templates/blog/post_list.html` і додайте рядок:
 
 ```django
 <a href="{% url 'blog.views.post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
 ```
 
 After that our template should look like this:
+Після цього наш шаблон повинен виглядати наступним чином:
 
 ```django
 {% extends 'blog/base.html' %}
@@ -132,11 +138,13 @@ After that our template should look like this:
 {% endblock content %}
 ```
 
-## Let your readers write comments
+## Let your readers write commentsНехай ваші читачі пишуть коментарі
 
 Right now we can see comments on our blog, but we can't add them. Let's change that!
+Зараз ми можемо бачити коментарі на нашому блозі, але ми не можемо додати їх. Давайте змінимо це!
 
 Go to `blog/forms.py` and add the following lines to the end of the file:
+Перейти до `blog/forms.py` і додайте наступні рядки в кінець файлу:
 
 ```python
 class CommentForm(forms.ModelForm):
@@ -147,38 +155,45 @@ class CommentForm(forms.ModelForm):
 ```
 
 Remember to import the Comment model, changing the line:
+Не забудьте імпортувати моделі Comment, змінивши рядок:
 
 ```python
 from .models import Post
 ```
 
 into:
+в:
 
 ```python
 from .models import Post, Comment
 ```
 
 Now, go to `blog/templates/blog/post_detail.html` and before the line `{% for comment in post.comments.all %}`, add:
+Тепер перейдіть в `blog/templates/blog/post_detail.html` і перед строкой `{% for comment in post.comments.all %}`, додайте:
 
 ```django
 <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
 ```
 
 If you go to the post detail page you should see this error:
+Якщо ви зайдете на сторінку записи ви повинні побачити цю помилку:
 
 ![NoReverseMatch](images/url_error.png)
 
 We know how to fix that! Go to `blog/urls.py` and add this pattern to `urlpatterns`:
+Ми знаємо, як це виправити! Перейти до `blog/urls.py` і додати цей шаблон для `urlpatterns`:
 
 ```python
 url(r'^post/(?P<pk>\d+)/comment/$', views.add_comment_to_post, name='add_comment_to_post'),
 ```
 
 Refresh the page, and we get a different error!
+Оновлення сторінку, і ми отримуємо іншу помилку!
 
 ![AttributeError](images/views_error.png)
 
 To fix this error, add this view to `blog/views.py`:
+Щоб виправити цю помилку, додайте цей вид `blog/views.py`:
 
 ```python
 def add_comment_to_post(request, pk):
@@ -196,6 +211,7 @@ def add_comment_to_post(request, pk):
 ```
 
 Remember to import `CommentForm` at the beginning of the file:
+Не забудьте імпортувати `CommentForm` на початку файлу:
 
 ```python
 from .forms import PostForm, CommentForm
@@ -203,15 +219,18 @@ from .forms import PostForm, CommentForm
 
 
 Now, on the post detail page, you should see the "Add Comment" button.
+Тепер на сторінку записи, ви повинні побачити кнопку "Додати коментар".
 
 ![AddComment](images/add_comment_button.png)
 
 However, when you click that button, you'll see:
+Проте, при натисканні на цю кнопку, ви побачите:
 
 ![TemplateDoesNotExist](images/template_error.png)
 
 
 Like the error tells us, the template doesn't exist yet. So, let's create a new one at `blog/templates/blog/add_comment_to_post.html` and add the following code:
+Як помилка говорить нам, шаблон ще не існує. Отже, давайте створимо нову в `blog/templates/blog/add_comment_to_post.html` і додайте наступний код:
 
 ```django
 {% extends 'blog/base.html' %}
@@ -226,12 +245,15 @@ Like the error tells us, the template doesn't exist yet. So, let's create a new 
 ```
 
 Yay! Now your readers can let you know what they think of your blog posts!
+Yay! Тепер ваші читачі можуть повідомити вам, що вони думають про ваших постів в блозі!
 
-## Moderating your comments
+## Moderating your commentsМодерація ваші коментарі
 
 Not all of the comments should be displayed. As the blog owner, you probably want the option to approve or delete comments. Let's do something about it.
+Не всі коментарі повинні бути відображені. Як власник блогу, ви, ймовірно, хочете можливість схвалити або видаляти коментарі. Давайте робити щось про це.
 
 Go to `blog/templates/blog/post_detail.html` and change lines:
+Перейти до `blog/templates/blog/post_detail.html` і зміни ліній:
 
 ```django
 {% for comment in post.comments.all %}
@@ -246,6 +268,7 @@ Go to `blog/templates/blog/post_detail.html` and change lines:
 ```
 
 to:
+щоб:
 
 ```django
 {% for comment in post.comments.all %}
@@ -268,8 +291,10 @@ to:
 ```
 
 You should see `NoReverseMatch`, because no URL matches the `comment_remove` and `comment_approve` patterns... yet!
+Ви повинні побачити `NoReverseMatch`, тому що ні один URL-адреса не соответствует `comment_remove` і `comment_approve` візерунки ... ще!
 
 To fix the error, add these URL patterns to `blog/urls.py`:
+Щоб виправити цю помилку, додайте ці шаблони URL в `блог / urls.py`:
 
 ```python
 url(r'^comment/(?P<pk>\d+)/approve/$', views.comment_approve, name='comment_approve'),
@@ -277,6 +302,7 @@ url(r'^comment/(?P<pk>\d+)/remove/$', views.comment_remove, name='comment_remove
 ```
 
 Now, you should see `AttributeError`. To fix this error, add these views in `blog/views.py`:
+Тепер ви повинні побачити `AttributeError`. Щоб виправити цю помилку, додайте ці погляди в `blog/views.py`:
 
 ```python
 @login_required
@@ -294,32 +320,38 @@ def comment_remove(request, pk):
 ```
 
 You'll also need to import `login_required` at the beginning of the file:
+Вам також необхідно імпортувати `login_required` на початку файлу:
 
 ```python
 from django.contrib.auth.decorators import login_required
 ```
 
 And of course, remember to import `Comment` at the top of the file:
+І, звичайно ж, не забудьте імпортувати `Comment` у верхній частині файлу:
 
 ```python
 from .models import Post, Comment
 ```
 
 Everything works! There is one small tweak we can make. In our post list page -- under posts -- we currently see the number of all the comments the blog post has received. Let's change that to show the number of *approved* comments there.
+Все працює! Існує один невеликої настройки, ми можемо зробити. У нашому списку повідомлень сторінці - під пости - в даний час ми бачимо кількість всіх коментарів повідомлення в блозі отримав. Давайте змінимо, що, щоб показати кількість * затверджених * коментарі там.
 
 To fix this, go to `blog/templates/blog/post_list.html` and change the line:
+Щоб це виправити, перейдіть в `blog/templates/blog/post_list.html` і змініть рядок:
 
 ```django
 <a href="{% url 'blog.views.post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
 ```
 
 to:
+щоб:
 
 ```django
 <a href="{% url 'blog.views.post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
 ```
 
 Finally, add this method to the Post model in `blog/models.py`:
+Нарешті, додайте цей метод до моделі постів в `blog/models.py`:
 
 ```python
 def approved_comments(self):
@@ -327,3 +359,4 @@ def approved_comments(self):
 ```
 
 Now your comment feature is finished! Congrats! :-)
+Тепер Ваш коментар особливість закінчена! Вітаю! :-)
