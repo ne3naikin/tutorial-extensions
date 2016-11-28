@@ -51,24 +51,21 @@ class Comment(models.Model):
 
 Наша модель *коментарів* вже існує в базі даних! А не було б це добре, якби ми мали доступ до неї в нашій панелі адміністратора?
 
-## Register Comment model in admin panelРеєстрація коментар модель в панелі адміністратора
+## Реєстрація моделі коментарів в панелі адміністратора
 
-To register the Comment model in the admin panel, go to `blog/admin.py` and add this line:
-Для того, щоб зареєструвати коментар модель в панелі адміністратора, перейдіть в `blog/admin.py` і додайте наступний рядок:
+Для того, щоб зареєструвати модель коментарів в панелі адміністратора, перейдіть в `blog/admin.py` і додайте наступний рядок:
 
 ```python
 admin.site.register(Comment)
 ```
 
-directly under this line:
-безпосередньо під цієї лінії:
+Безпосередньо під цією лінією:
 
 ```python
 admin.site.register(Post)
 ```
 
-Remember to import the Comment model at the top of the file, too, like this:
-Не забудьте імпортувати модель коментаря у верхній частині файлу, теж, як це:
+Також не забудьте імпортувати модель коментарів у верхній частині файлу, як це:
 
 ```python
 from django.contrib import admin
@@ -78,13 +75,11 @@ admin.site.register(Post)
 admin.site.register(Comment)
 ```
 
-If you type `python manage.py runserver` on the command line and go to [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) in your browser, you should have access to the list of comments, and also the capability to add and remove comments. Play around with the new comments feature!
-Якщо ви наберете `python manage.py runserver` в командному рядку і перейти до [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) в вашому браузері, ви повинні мати доступ до списку коментарів, а також можливість додавати і видаляти коментарі. Пограйте з новою функцією коментарів!
+Якщо ви наберете `python manage.py runserver` в командному рядку і перейдете до [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) в вашому браузері, ви повинні отримати доступ до списку коментарів, а також можливість додавати й видаляти коментарі. Пограйте з новою функцією коментарів!
 
-## Make our comments visibleЗробити наші коментарі видно
+## Зробимо наші коментарі видимими
 
-Go to the `blog/templates/blog/post_detail.html` file and add the following lines before the `{% endblock %}` tag:
-Перейти до `blog/templates/blog/post_detail.html` і додайте наступні рядки перед `{% endblock %}` тег:
+Перейти до `blog/templates/blog/post_detail.html` і додайте наступні рядки перед тегом `{% endblock %}`:
 
 ```django
 <hr>
@@ -99,11 +94,9 @@ Go to the `blog/templates/blog/post_detail.html` file and add the following line
 {% endfor %}
 ```
 
-Now we can see the comments section on pages with post details.
-Тепер ми можемо побачити розділ коментарі на сторінках з поштовими деталями.
+Тепер ми можемо побачити розділ коментарів на сторінках як частину посту.
 
-But it could look a little bit better, so let's add some CSS to the bottom of the `static/css/blog.css` file:
-Але це може виглядати трохи краще, так що давайте додамо трохи CSS до нижньої частини `static/css/blog.css` файлу:
+Але це все може виглядати трохи краще, так що додамо трохи CSS до нижньої частини у файлі `static/css/blog.css`:
 
 ```css
 .comment {
@@ -111,14 +104,12 @@ But it could look a little bit better, so let's add some CSS to the bottom of th
 }
 ```
 
-We can also let visitors know about comments on the post list page. Go to the `blog/templates/blog/post_list.html` file and add the line:
-Ми також можемо дозволити відвідувачам знати про коментарі на сторінці списку повідомлень. Перейти до `blog/templates/blog/post_list.html` і додайте рядок:
+Ми також можемо дозволити відвідувачам ознайомитесь з коментарями на сторінці постів. Перейти до `blog/templates/blog/post_list.html` і додайте рядок:
 
 ```django
 <a href="{% url 'blog.views.post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
 ```
 
-After that our template should look like this:
 Після цього наш шаблон повинен виглядати наступним чином:
 
 ```django
@@ -138,12 +129,10 @@ After that our template should look like this:
 {% endblock content %}
 ```
 
-## Let your readers write commentsНехай ваші читачі пишуть коментарі
+## Нехай ваші читачі пишуть коментарі
 
-Right now we can see comments on our blog, but we can't add them. Let's change that!
 Зараз ми можемо бачити коментарі на нашому блозі, але ми не можемо додати їх. Давайте змінимо це!
 
-Go to `blog/forms.py` and add the following lines to the end of the file:
 Перейти до `blog/forms.py` і додайте наступні рядки в кінець файлу:
 
 ```python
@@ -154,41 +143,35 @@ class CommentForm(forms.ModelForm):
         fields = ('author', 'text',)
 ```
 
-Remember to import the Comment model, changing the line:
-Не забудьте імпортувати моделі Comment, змінивши рядок:
+Не забудьте імпортувати модель *коментарив*, змінивши рядок:
 
 ```python
 from .models import Post
 ```
 
-into:
-в:
+на:
 
 ```python
 from .models import Post, Comment
 ```
 
-Now, go to `blog/templates/blog/post_detail.html` and before the line `{% for comment in post.comments.all %}`, add:
 Тепер перейдіть в `blog/templates/blog/post_detail.html` і перед строкой `{% for comment in post.comments.all %}`, додайте:
 
 ```django
 <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
 ```
 
-If you go to the post detail page you should see this error:
-Якщо ви зайдете на сторінку записи ви повинні побачити цю помилку:
+Якщо ви зайдете на сторінку посту ви повинні побачити цю помилку:
 
 ![NoReverseMatch](images/url_error.png)
 
-We know how to fix that! Go to `blog/urls.py` and add this pattern to `urlpatterns`:
-Ми знаємо, як це виправити! Перейти до `blog/urls.py` і додати цей шаблон для `urlpatterns`:
+Ми знаємо, як це виправити! Перейти до `blog/urls.py` і додати цей шаблон у `urlpatterns`:
 
 ```python
 url(r'^post/(?P<pk>\d+)/comment/$', views.add_comment_to_post, name='add_comment_to_post'),
 ```
 
-Refresh the page, and we get a different error!
-Оновлення сторінку, і ми отримуємо іншу помилку!
+Оновимо сторінку, і ми отримуємо іншу помилку!
 
 ![AttributeError](images/views_error.png)
 
