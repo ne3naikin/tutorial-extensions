@@ -29,7 +29,7 @@ class Comment(models.Model):
 
 Елемент `related_name` в `models.ForeignKey` дозволяє нам мати доступ до коментарів всередині моделі постів.
 
-## Створення таблиць для моделей в базі даних
+## Створення табличної бази даних для моделей
 
 Тепер прийшов час, щоб додати нашу модель коментарів в базу даних. Для цього ми повинні сказати Django, що ми внесли зміни в нашу модель. Для цього введемо в командному рядку такий тип рядка `python manage.py makemigrations blog`. Ви повинні побачити, таке:
 
@@ -175,8 +175,7 @@ url(r'^post/(?P<pk>\d+)/comment/$', views.add_comment_to_post, name='add_comment
 
 ![AttributeError](images/views_error.png)
 
-To fix this error, add this view to `blog/views.py`:
-Щоб виправити цю помилку, додайте цей вид `blog/views.py`:
+Щоб виправити цю помилку, додайте у цей файл `blog/views.py`:
 
 ```python
 def add_comment_to_post(request, pk):
@@ -193,7 +192,6 @@ def add_comment_to_post(request, pk):
     return render(request, 'blog/add_comment_to_post.html', {'form': form})
 ```
 
-Remember to import `CommentForm` at the beginning of the file:
 Не забудьте імпортувати `CommentForm` на початку файлу:
 
 ```python
@@ -201,19 +199,16 @@ from .forms import PostForm, CommentForm
 ```
 
 
-Now, on the post detail page, you should see the "Add Comment" button.
-Тепер на сторінку записи, ви повинні побачити кнопку "Додати коментар".
+Тепер на сторінці запису, ви повинні побачити кнопку "Додати коментар".
 
 ![AddComment](images/add_comment_button.png)
 
-However, when you click that button, you'll see:
 Проте, при натисканні на цю кнопку, ви побачите:
 
 ![TemplateDoesNotExist](images/template_error.png)
 
 
-Like the error tells us, the template doesn't exist yet. So, let's create a new one at `blog/templates/blog/add_comment_to_post.html` and add the following code:
-Як помилка говорить нам, шаблон ще не існує. Отже, давайте створимо нову в `blog/templates/blog/add_comment_to_post.html` і додайте наступний код:
+Подібна помилка говорить нам, шаблона ще нема. Отже, давайте створимо його у `blog/templates/blog/add_comment_to_post.html` і додамо наступний код:
 
 ```django
 {% extends 'blog/base.html' %}
@@ -227,16 +222,13 @@ Like the error tells us, the template doesn't exist yet. So, let's create a new 
 {% endblock %}
 ```
 
-Yay! Now your readers can let you know what they think of your blog posts!
-Yay! Тепер ваші читачі можуть повідомити вам, що вони думають про ваших постів в блозі!
+Ура! Тепер ваші читачі можуть повідомити вам, що вони думають про ваші пости в блозі!
 
-## Moderating your commentsМодерація ваші коментарі
+## Модерація ваших коментарів
 
-Not all of the comments should be displayed. As the blog owner, you probably want the option to approve or delete comments. Let's do something about it.
-Не всі коментарі повинні бути відображені. Як власник блогу, ви, ймовірно, хочете можливість схвалити або видаляти коментарі. Давайте робити щось про це.
+Не всі коментарі повинні бути відображені. Як власник блогу, ви, ймовірно, хочете мати можливість схвалювати або видаляти коментарі. Давайте щось зробимо для цього.
 
-Go to `blog/templates/blog/post_detail.html` and change lines:
-Перейти до `blog/templates/blog/post_detail.html` і зміни ліній:
+Перейти до `blog/templates/blog/post_detail.html` і змініть рядки:
 
 ```django
 {% for comment in post.comments.all %}
@@ -250,8 +242,7 @@ Go to `blog/templates/blog/post_detail.html` and change lines:
 {% endfor %}
 ```
 
-to:
-щоб:
+на:
 
 ```django
 {% for comment in post.comments.all %}
@@ -273,19 +264,16 @@ to:
 {% endfor %}
 ```
 
-You should see `NoReverseMatch`, because no URL matches the `comment_remove` and `comment_approve` patterns... yet!
-Ви повинні побачити `NoReverseMatch`, тому що ні один URL-адреса не соответствует `comment_remove` і `comment_approve` візерунки ... ще!
+Ви повинні побачити `NoReverseMatch`, тому що ні одно з цих посилань `comment_remove` і `comment_approve` не збігається з шаблоном ... поки що!
 
-To fix the error, add these URL patterns to `blog/urls.py`:
-Щоб виправити цю помилку, додайте ці шаблони URL в `блог / urls.py`:
+Щоб виправити цю помилку, додайте ці шаблони посилань в `blog/urls.py`:
 
 ```python
 url(r'^comment/(?P<pk>\d+)/approve/$', views.comment_approve, name='comment_approve'),
 url(r'^comment/(?P<pk>\d+)/remove/$', views.comment_remove, name='comment_remove'),
 ```
 
-Now, you should see `AttributeError`. To fix this error, add these views in `blog/views.py`:
-Тепер ви повинні побачити `AttributeError`. Щоб виправити цю помилку, додайте ці погляди в `blog/views.py`:
+Тепер ви повинні побачити `AttributeError`. Щоб виправити й цю помилку, додайте їх відображення в `blog/views.py`:
 
 ```python
 @login_required
@@ -302,38 +290,32 @@ def comment_remove(request, pk):
     return redirect('blog.views.post_detail', pk=post_pk)
 ```
 
-You'll also need to import `login_required` at the beginning of the file:
-Вам також необхідно імпортувати `login_required` на початку файлу:
+Вам також необхідно імпортувати `login_required` в початок файлу:
 
 ```python
 from django.contrib.auth.decorators import login_required
 ```
 
-And of course, remember to import `Comment` at the top of the file:
 І, звичайно ж, не забудьте імпортувати `Comment` у верхній частині файлу:
 
 ```python
 from .models import Post, Comment
 ```
 
-Everything works! There is one small tweak we can make. In our post list page -- under posts -- we currently see the number of all the comments the blog post has received. Let's change that to show the number of *approved* comments there.
-Все працює! Існує один невеликої настройки, ми можемо зробити. У нашому списку повідомлень сторінці - під пости - в даний час ми бачимо кількість всіх коментарів повідомлення в блозі отримав. Давайте змінимо, що, щоб показати кількість * затверджених * коментарі там.
+Все працює! Але існує одне невелике удосконалення, яке ми можемо зробити. У нашому пості сторінка зі списком -- під постами -- в даний час показує нам кількість всіх коментарів який отримав пост у блозі. Давайте змінимо це, щоб тут показувалась тільки кількість *схвалених* коментарів.
 
-To fix this, go to `blog/templates/blog/post_list.html` and change the line:
 Щоб це виправити, перейдіть в `blog/templates/blog/post_list.html` і змініть рядок:
 
 ```django
 <a href="{% url 'blog.views.post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
 ```
 
-to:
-щоб:
+на:
 
 ```django
 <a href="{% url 'blog.views.post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
 ```
 
-Finally, add this method to the Post model in `blog/models.py`:
 Нарешті, додайте цей метод до моделі постів в `blog/models.py`:
 
 ```python
@@ -341,5 +323,4 @@ def approved_comments(self):
     return self.comments.filter(approved_comment=True)
 ```
 
-Now your comment feature is finished! Congrats! :-)
-Тепер Ваш коментар особливість закінчена! Вітаю! :-)
+Тепер Ваш коментар особистостей закінчено! Вітаю! :-)
